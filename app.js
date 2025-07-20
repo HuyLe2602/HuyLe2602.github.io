@@ -6,8 +6,14 @@ const products = [
     { id: 4, name: "Lẵng hoa cẩm chướng", price: 340000, img: "carnation.jpg" }
 ];
 
+// Lưu user vào localStorage cho demo (giả lập)
+let users = JSON.parse(localStorage.getItem("users")) || [
+    { username: "sv2025", password: "123456", name: "Sinh Viên 2025" },
+    { username: "admin", password: "admin", name: "Admin" }
+];
+
 let cart = [];
-let currentUser = null;
+let currentUser = JSON.parse(localStorage.getItem("currentUser")) || null;
 
 // Render sản phẩm
 function renderProducts() {
@@ -125,11 +131,13 @@ const loginError = document.getElementById("login-error");
 const userGreeting = document.getElementById("user-greeting");
 const logoutLink = document.getElementById("logout-link");
 
-// Demo tài khoản: user: sv2025, pass: 123456
-const users = [
-    { username: "sv2025", password: "123456", name: "Sinh Viên 2025" },
-    { username: "admin", password: "admin", name: "Admin" }
-];
+// Đăng ký modal logic
+const registerModal = document.getElementById("register-modal");
+const registerLink = document.getElementById("register-link");
+const closeRegister = document.getElementById("close-register");
+const registerForm = document.getElementById("register-form");
+const registerError = document.getElementById("register-error");
+const registerSuccess = document.getElementById("register-success");
 
 function showLogin() {
     loginModal.style.display = "block";
@@ -144,8 +152,42 @@ closeLogin.onclick = function() {
 };
 window.onclick = function(event) {
     if (event.target === loginModal) loginModal.style.display = "none";
+    if (event.target === registerModal) registerModal.style.display = "none";
 };
 
+// Đăng ký
+registerLink.onclick = function(e) {
+    e.preventDefault();
+    registerModal.style.display = "block";
+    registerError.textContent = "";
+    registerSuccess.textContent = "";
+};
+closeRegister.onclick = function() {
+    registerModal.style.display = "none";
+};
+registerForm.onsubmit = function(e) {
+    e.preventDefault();
+    const username = this.username.value.trim();
+    const password = this.password.value;
+    const fullname = this.fullname.value.trim();
+    if (!username || !password || !fullname) {
+        registerError.textContent = "Vui lòng nhập đủ thông tin!";
+        registerSuccess.textContent = "";
+        return;
+    }
+    if (users.find(u => u.username === username)) {
+        registerError.textContent = "Tài khoản đã tồn tại!";
+        registerSuccess.textContent = "";
+        return;
+    }
+    users.push({username, password, name: fullname});
+    localStorage.setItem("users", JSON.stringify(users));
+    registerError.textContent = "";
+    registerSuccess.textContent = "Đăng ký thành công! Bạn có thể đăng nhập.";
+    this.reset();
+};
+
+// Đăng nhập
 loginForm.onsubmit = function(e) {
     e.preventDefault();
     const username = this.username.value.trim();
@@ -153,20 +195,26 @@ loginForm.onsubmit = function(e) {
     const found = users.find(u => u.username === username && u.password === password);
     if (found) {
         currentUser = found;
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
         loginModal.style.display = "none";
         userGreeting.textContent = `Xin chào, ${found.name}!`;
         loginLink.style.display = "none";
+        registerLink.style.display = "none";
         logoutLink.style.display = "inline";
         loginError.textContent = "";
     } else {
         loginError.textContent = "Tài khoản hoặc mật khẩu không đúng!";
     }
-}
+};
+
+// Đăng xuất
 logoutLink.onclick = function(e) {
     e.preventDefault();
     currentUser = null;
+    localStorage.removeItem("currentUser");
     userGreeting.textContent = "";
     loginLink.style.display = "inline";
+    registerLink.style.display = "inline";
     logoutLink.style.display = "none";
     alert("Bạn đã đăng xuất.");
 };
@@ -174,4 +222,11 @@ logoutLink.onclick = function(e) {
 window.onload = function() {
     renderProducts();
     renderCart();
+    // Nếu đã đăng nhập, hiển thị tên và nút đăng xuất
+    if (currentUser) {
+        userGreeting.textContent = `Xin chào, ${currentUser.name}!`;
+        loginLink.style.display = "none";
+        registerLink.style.display = "none";
+        logoutLink.style.display = "inline";
+    }
 };
