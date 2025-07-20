@@ -13,6 +13,7 @@
             <a href="#products">Sản phẩm</a>
             <a href="#cart">Giỏ hàng</a>
             <a href="#" id="login-link">Đăng nhập</a>
+            <a href="#" id="register-link">Đăng ký</a>
             <span id="user-greeting" style="margin-left:10px;color:#fff;"></span>
             <a href="#" id="logout-link" style="display:none;">Đăng xuất</a>
         </nav>
@@ -32,6 +33,27 @@
           <button type="submit">Đăng nhập</button>
         </form>
         <div id="login-error" style="color:red;margin-top:8px;"></div>
+      </div>
+    </div>
+    <!-- Đăng ký Modal -->
+    <div id="register-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="close-register">&times;</span>
+        <h2>Đăng ký tài khoản</h2>
+        <form id="register-form">
+          <label>Tài khoản:<br>
+            <input type="text" name="username" required>
+          </label><br>
+          <label>Mật khẩu:<br>
+            <input type="password" name="password" required>
+          </label><br>
+          <label>Họ tên:<br>
+            <input type="text" name="fullname" required>
+          </label><br>
+          <button type="submit">Đăng ký</button>
+        </form>
+        <div id="register-error" style="color:red;margin-top:8px;"></div>
+        <div id="register-success" style="color:green;margin-top:8px;"></div>
       </div>
     </div>
     <main>
