@@ -3,87 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoa Sinh Viên - Giỏ hàng & Thanh toán</title>
+    <title>Cửa Hàng Bán Hoa</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .product img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <h1>Hoa Sinh Viên</h1>
-        <nav>
-            <a href="#products">Sản phẩm</a>
-            <a href="#cart">Giỏ hàng</a>
-            <a href="#" id="login-link">Đăng nhập</a>
-            <a href="#" id="register-link">Đăng ký</a>
-            <span id="user-greeting" style="margin-left:10px;color:#fff;"></span>
-            <a href="#" id="logout-link" style="display:none;">Đăng xuất</a>
-        </nav>
+        <div class="topbar">
+            <div class="container">
+                <span>Nơi giao hoa: <b>Thành Phố Hồ Chí Minh</b></span>
+                <span class="hotline">Hotline: <b>0774499524</b></span>
+            </div>
+        </div>
+        <div class="container flex header-main">
+            <div class="logo">
+                <span class="logo-main">Cửa Hàng Bán Hoa</span>
+                <span class="logo-tag">.vn</span>
+            </div>
+            <nav>
+                <a href="#">Trang chủ</a>
+                <a href="#">Loại hoa</a>
+                <a href="#">Bộ sưu tập</a>
+                <a href="#">Đặt hoa</a>
+                <a href="#">Giỏ hàng</a>
+                <a href="#">Liên hệ</a>
+            </nav>
+            <div class="header-actions">
+                <button class="cart-btn" title="Giỏ hàng">🛒</button>
+                <button class="login-btn" title="Đăng nhập">Đăng nhập</button>
+            </div>
+        </div>
     </header>
-    <!-- Đăng nhập Modal -->
-    <div id="login-modal" class="modal">
-      <div class="modal-content">
-        <span class="close" id="close-login">&times;</span>
-        <h2>Đăng nhập</h2>
-        <form id="login-form">
-          <label>Tài khoản:<br>
-            <input type="text" name="username" required>
-          </label><br>
-          <label>Mật khẩu:<br>
-            <input type="password" name="password" required>
-          </label><br>
-          <button type="submit">Đăng nhập</button>
-        </form>
-        <div id="login-error" style="color:red;margin-top:8px;"></div>
-      </div>
-    </div>
-    <!-- Đăng ký Modal -->
-    <div id="register-modal" class="modal">
-      <div class="modal-content">
-        <span class="close" id="close-register">&times;</span>
-        <h2>Đăng ký tài khoản</h2>
-        <form id="register-form">
-          <label>Tài khoản:<br>
-            <input type="text" name="username" required>
-          </label><br>
-          <label>Mật khẩu:<br>
-            <input type="password" name="password" required>
-          </label><br>
-          <label>Họ tên:<br>
-            <input type="text" name="fullname" required>
-          </label><br>
-          <button type="submit">Đăng ký</button>
-        </form>
-        <div id="register-error" style="color:red;margin-top:8px;"></div>
-        <div id="register-success" style="color:green;margin-top:8px;"></div>
-      </div>
-    </div>
-    <main>
-        <section id="products">
-            <h2>Sản phẩm nổi bật</h2>
-            <div class="product-list" id="product-list"></div>
-        </section>
-        <section id="cart">
-            <h2>Giỏ hàng</h2>
-            <div id="cart-content"></div>
-        </section>
-        <section id="checkout-section" style="display:none;">
-            <h2>Thanh toán</h2>
-            <form id="checkout-form">
-                <label>Họ tên người nhận<br>
-                    <input type="text" name="name" required>
-                </label><br>
-                <label>Số điện thoại<br>
-                    <input type="tel" name="phone" required>
-                </label><br>
-                <label>Địa chỉ giao hoa<br>
-                    <input type="text" name="address" required>
-                </label><br>
-                <button type="submit">Xác nhận đặt hàng</button>
-            </form>
-            <div id="order-result"></div>
-        </section>
-    </main>
+    <!-- Banner -->
+    <section class="banner">
+        <div class="container flex banner-content">
+            <div class="banner-text">
+                <h1>Giao Hoa Tươi Tận Nơi</h1>
+                <p>Đa dạng mẫu mã, giá sinh viên – giao nhanh toàn quốc.</p>
+                <ul>
+                    <li>Cam kết đúng mẫu</li>
+                    <li>Miễn phí thiệp chúc mừng</li>
+                    <li>Giao hoa trong 2h</li>
+                </ul>
+                <a href="#products" class="primary-btn">Xem mẫu hoa</a>
+            </div>
+            <img src="banner-flower.jpg" alt="Hoa tươi giao tận nơi" class="banner-img">
+        </div>
+    </section>
+    <!-- Search & filter -->
+    <section class="searchbar container">
+        <input type="text" id="search" placeholder="Tìm kiếm loại hoa, dịp tặng...">
+        <select id="category">
+            <option>Tất cả</option>
+            <option>Sinh nhật</option>
+            <option>Khai trương</option>
+            <option>Chúc mừng</option>
+        </select>
+        <select id="price">
+            <option>Giá bất kỳ</option>
+            <option>Dưới 300k</option>
+            <option>300k - 700k</option>
+            <option>Trên 700k</option>
+        </select>
+        <button class="primary-btn" onclick="filterProducts()">Tìm hoa</button>
+    </section>
+    <!-- Product list -->
+    <section class="products container" id="products">
+        <h2>Mẫu Hoa Nổi Bật</h2>
+        <div class="product-list" id="product-list">
+            <!-- Sản phẩm sẽ được render bởi JS -->
+        </div>
+    </section>
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Hoa Sinh Viên</p>
+        <div class="container flex footer-main">
+            <div>
+                <b>HoaSinhVien.vn</b><br>
+                Đặt hoa online giá rẻ, uy tín cho sinh viên <br>
+                Địa chỉ: Quốc Lộ 1A, TP. Hồ Chí Minh <br>
+                Hotline: 0774499524 <br>
+                Email: lienhe@hoasinhvien.vn
+            </div>
+            <div>
+                <b>Liên kết</b><br>
+                <a href="#">Về chúng tôi</a><br>
+                <a href="#">Chính sách bảo mật</a><br>
+                <a href="#">Hướng dẫn đặt hoa</a>
+            </div>
+            <div>
+                <b>Theo dõi</b><br>
+                <a href="#">Facebook</a> | <a href="#">Instagram</a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            &copy; 2025 HoaSinhVien.vn
+        </div>
     </footer>
     <script src="app.js"></script>
 </body>
